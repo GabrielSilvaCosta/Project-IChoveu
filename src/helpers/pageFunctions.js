@@ -157,7 +157,7 @@ export async function handleSearch(event) {
   try {
     const cities = await searchCities(searchValue);
 
-    if (cities.length === 0) {
+    if (!Array.isArray(cities) || cities.length === 0) {
       window.alert('Nenhuma cidade encontrada');
       return;
     }
