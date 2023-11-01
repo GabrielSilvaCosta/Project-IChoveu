@@ -3,7 +3,9 @@ Projeto IChoveu
 Tecnologias Utilizadas:
 
 JavaScript
+
 HTML
+
 CSS (incluindo media queries para responsividade)
 
 Objetivo:
