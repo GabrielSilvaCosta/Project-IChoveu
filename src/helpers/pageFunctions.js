@@ -85,10 +85,9 @@ export function showForecast(forecastList) {
 
 export async function handleForecastButtonClick(cityURL) {
   try {
+    const apiKey = '02296b5e2c71473abfd173308230111';
     const response = await fetch(
-      `https://api.weatherapi.com/v1/forecast.json?lang=pt&key=${
-        import.meta.env.VITE_TOKEN
-      }&q=${cityURL}&days=7`,
+      `https://api.weatherapi.com/v1/forecast.json?lang=pt&key=${apiKey}&q=${cityURL}&days=7`,
     );
     const data = await response.json();
 
@@ -155,14 +154,15 @@ export async function handleSearch(event) {
   const searchValue = searchInput.value;
 
   try {
-    const cities = await searchCities(searchValue);
+    const apiKey = '02296b5e2c71473abfd173308230111';
+    const cities = await searchCities(searchValue, apiKey);
 
     if (!Array.isArray(cities) || cities.length === 0) {
       window.alert('Nenhuma cidade encontrada');
       return;
     }
 
-    const weatherPromises = cities.map((city) => getWeatherByCity(city.url));
+    const weatherPromises = cities.map((city) => getWeatherByCity(city.url, apiKey));
     const weatherData = await Promise.all(weatherPromises);
 
     const citiesList = document.getElementById('cities');

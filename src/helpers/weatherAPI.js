@@ -1,9 +1,7 @@
-export const searchCities = async (term) => {
+export const searchCities = async (term, apiKey) => {
   try {
     const response = await fetch(
-      `https://api.weatherapi.com/v1/search.json?lang=pt&key=${
-        import.meta.env.VITE_TOKEN
-      }&q=${term}`,
+      `https://api.weatherapi.com/v1/search.json?lang=pt&key=${apiKey}&q=${term}`,
     );
     const data = await response.json();
 
@@ -19,12 +17,10 @@ export const searchCities = async (term) => {
   }
 };
 
-export const getWeatherByCity = async (cityURL) => {
+export const getWeatherByCity = async (cityURL, apiKey) => {
   try {
     const response = await fetch(
-      `https://api.weatherapi.com/v1/current.json?lang=pt&key=${
-        import.meta.env.VITE_TOKEN
-      }&q=${cityURL}`,
+      `https://api.weatherapi.com/v1/current.json?lang=pt&key=${apiKey}&q=${cityURL}`,
     );
     const data = await response.json();
 
