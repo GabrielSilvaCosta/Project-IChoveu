@@ -1,4 +1,4 @@
-import { searchCities } from './weatherAPI';
+import { searchCities, getWeatherByCity } from './weatherAPI';
 
 /**
  * Cria um elemento HTML com as informações passadas.
@@ -24,9 +24,17 @@ function createForecast(forecast) {
   const dateElement = createElement('p', 'forecast-weekday', weekdayName);
 
   const maxElement = createElement('span', 'forecast-temp max', 'max');
-  const maxTempElement = createElement('span', 'forecast-temp max', `${maxTemp}º`);
+  const maxTempElement = createElement(
+    'span',
+    'forecast-temp max',
+    `${maxTemp}º`,
+  );
   const minElement = createElement('span', 'forecast-temp min', 'min');
-  const minTempElement = createElement('span', 'forecast-temp min', `${minTemp}º`);
+  const minTempElement = createElement(
+    'span',
+    'forecast-temp min',
+    `${minTemp}º`,
+  );
   const tempContainer = createElement('div', 'forecast-temp-container');
   tempContainer.appendChild(maxElement);
   tempContainer.appendChild(minElement);
@@ -110,12 +118,26 @@ export function createCityElement(cityInfo) {
 /**
  * Lida com o evento de submit do formulário de busca
  */
-export function handleSearch(event) {
+export async function handleSearch(event) {
   event.preventDefault();
   clearChildrenById('cities');
 
   const searchInput = document.getElementById('search-input');
   const searchValue = searchInput.value;
-  searchCities(searchValue);
-  // seu código aqui
+
+  try {
+    const cities = await searchCities(searchValue);
+
+    if (cities.length === 0) {
+      window.alert('Nenhuma cidade encontrada');
+      return;
+    }
+
+    const weatherPromises = cities.map((city) => getWeatherByCity(city.url));
+    const weatherData = await Promise.all(weatherPromises);
+
+    console.log(weatherData);
+  } catch (error) {
+    console.error('Erro ao obter dados do tempo para as cidades:', error);
+  }
 }
