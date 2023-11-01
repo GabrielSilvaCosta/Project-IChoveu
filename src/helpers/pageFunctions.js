@@ -86,7 +86,7 @@ export function showForecast(forecastList) {
 export async function handleForecastButtonClick(cityURL) {
   try {
     const response = await fetch(
-      `http://api.weatherapi.com/v1/forecast.json?lang=pt&key=${
+      `https://api.weatherapi.com/v1/forecast.json?lang=pt&key=${
         import.meta.env.VITE_TOKEN
       }&q=${cityURL}&days=7`,
     );

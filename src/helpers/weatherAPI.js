@@ -1,7 +1,7 @@
 export const searchCities = async (term) => {
   try {
     const response = await fetch(
-      `http://api.weatherapi.com/v1/search.json?lang=pt&key=${
+      `https://api.weatherapi.com/v1/search.json?lang=pt&key=${
         import.meta.env.VITE_TOKEN
       }&q=${term}`,
     );
@@ -22,7 +22,7 @@ export const searchCities = async (term) => {
 export const getWeatherByCity = async (cityURL) => {
   try {
     const response = await fetch(
-      `http://api.weatherapi.com/v1/current.json?lang=pt&key=${
+      `https://api.weatherapi.com/v1/current.json?lang=pt&key=${
         import.meta.env.VITE_TOKEN
       }&q=${cityURL}`,
     );
