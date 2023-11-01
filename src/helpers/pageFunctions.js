@@ -136,6 +136,12 @@ export async function handleSearch(event) {
     const weatherPromises = cities.map((city) => getWeatherByCity(city.url));
     const weatherData = await Promise.all(weatherPromises);
 
+    const citiesList = document.getElementById('cities');
+    weatherData.forEach((cityWeather) => {
+      const cityElement = createCityElement(cityWeather);
+      citiesList.appendChild(cityElement);
+    });
+
     console.log(weatherData);
   } catch (error) {
     console.error('Erro ao obter dados do tempo para as cidades:', error);
